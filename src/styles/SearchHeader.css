@@ -1,0 +1,22 @@
+#searchForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+button{
+    border-radius: 10%;
+}
+
+input{
+    height: 2em;
+}
+
+button{
+    height: 2.5em;
+}
+
+button:hover{
+    background-color: lightgray;
+}

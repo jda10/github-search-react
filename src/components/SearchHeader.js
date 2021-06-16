@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-
 import axios from 'axios';
-
 import img from '../imgs/GitHub-Logo.png'
+import {
+    Redirect,
+  } from "react-router-dom";
 class SearchHeader extends Component {
     
     constructor(props){
         super(props);
-
+        this.state = {
+            value : "",
+            requestData : "",
+            searched : false
+        }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -18,12 +23,21 @@ class SearchHeader extends Component {
      async handleSubmit(event){
         event.preventDefault();
         let x = await axios.get('https://api.github.com/users/jda10/repos');
-        console.log(x);
-        alert("Request sent successfully")
+        this.setState({requestData : JSON.stringify(x)});
      }
 
      
-    render() { 
+    render() {
+        const hasData = this.state.requestData.length > 0;
+        if(hasData){
+            return(
+                <Redirect to={{
+                    'pathname': '/search',
+                    state: {data: this.state.requestData}
+                }
+                }></Redirect>
+            )
+        }
         return ( 
             <div id="searchForm">
                 <img src={img} alt="Github logo"></img>

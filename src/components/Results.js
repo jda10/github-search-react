@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
-
-
 class Results extends Component {
 
-    constructor(props){
-        super(props)
-        this.state = {
-            data : [],
-        }
+    state = {
+        id : this.props
     }
-    render() { 
-        console.log(this.state.data);
+    render() {
         return (
-            <h1>{this.state.data}</h1>
+            <div id="results">
+                <h2>Displaying results</h2>
+            </div>
         );
     }
 }
- 
 export default Results;

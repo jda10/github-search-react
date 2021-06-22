@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import img from '../imgs/GitHub-Logo.png';
-import axios from 'axios';
 class SearchHeader extends Component {
-    
     constructor(props){
         super(props);
         this.state = {
@@ -19,9 +17,18 @@ class SearchHeader extends Component {
 
      async handleSubmit(event){
         event.preventDefault();
-        let x = await axios.get('https://api.github.com/users/jda10/repos');
-        this.setState({hasData : true});
-        this.setState({responseData : JSON.stringify(x)})
+
+        fetch(`https://api.github.com/users/${this.state.value}/repos`)
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(JSON.stringify(data))
+            this.setState({
+                responseData : JSON.stringify(data)
+            })
+        })
+        .catch((error) => console.log(error))
+        this.setState({hasData: true})
+        console.log(JSON.parse(this.state.responseData))
      }
 
      
@@ -43,9 +50,6 @@ class SearchHeader extends Component {
                     <button type="submit">Search</button>
                 </form>
                 <br></br>
-                {this.state.hasData ? <div id="output">
-                    {this.state.responseData}
-                </div> : <div></div>}
             </div>
          );
     }
